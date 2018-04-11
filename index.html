@@ -1,70 +1,145 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/mystyle.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/mystyle.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<!-- 封面 -->
-				<section data-background-color="#000">
-					<h2>分布式数据库</h2>
-					<small class="author-name">何骞</small>
-					<p>2018-4-10</p>
-				</section>
-				<!-- DB 演变 -->
-				<section>
-					<section>
-						<h1>DB</h1>
-						<p class="fragment">RDBMS</p>
-						<p class="fragment">NoSql</p>
-						<p class="fragment"><span class="fragment highlight-red">NewSql</span></p>
-					</section>
-				</section>
-				<!-- end -->
-				<section data-transition="convex">
-					<p class="fragment fade-up current-visible">本人才疏学浅，望大佬们斧正</p>
-					<p class="fragment fade-up current-visible"></p>
-					<p class="fragment fade-up current-visible">Thanks！</p>
-				</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!-- 封面 -->
+        <section data-background-color="#000">
+            <h2>分布式数据库</h2>
+            <small class="author-name">何骞</small>
+            <p>2018-4-10</p>
+        </section>
+        <!-- DB 演变 -->
+        <section>
+            <h1>DB</h1>
+            <img class="fragment" src="images/db_evolution.jpg">
+        </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <section data-transition-speed="slow">
+            <h2>单机数据库</h2>
+            <p class="fragment">把数据存下来</p>
+            <p class="fragment">满足数据的计算需求</p>
+        </section>
+        <section data-transition="zoom">
+            <section data-transition-speed="slow">
+                <img src="images/sea.jpg">
+                <h2>随着数据规模爆炸式增长</h2>
+            </section>
+            <section data-transition-speed="fast">
+                <h2><span class="fragment highlight-blue">分布式数据库</span>走上神坛</h2>
+                <p class="fragment">实现容量的<span class="fragment highlight-green">水平扩展</span></p>
+                <p class="fragment"> 但代价是<span class="fragment highlight-red">牺牲事务</span>
+                    或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
+            </section>
+            <section data-transition-speed="slow">
+                <h2>解决方案</h2>
+                <p class="fragment">Nosql （MongoDB 分片，HBase）</p>
+                <p class="fragment">RDBMS + 中间件（Cobar，TDDL，Mycat ），实现读写分离、垂直拆库、水平分表</p>
+            </section>
+            <section data-transition-speed="slow">
+                <h2>弊端</h2>
+                <p class="fragment">分库后 -> 业务复杂（例如查询后需要数据合并）</p>
+                <p class="fragment">对sql进行阉割，不支持一些复杂sql（例如复杂的join操作）</p>
+                <p class="fragment">水平扩容需要人工参与，甚至停服，成本巨大（例如myCat）</p>
+            </section>
+        </section>
+        <section data-transition="zoom">
+            <h1>NewSql</h1>
+            <p class="fragment">随着Google的Spanner和F1论文发布，
+                让业界第一次看到了关系模型和 NoSQL 的扩展性在一个大规模生产系统上融合的可能性。</p>
+        </section>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
-				// 是否显示当前幻灯片的页数 
-    			slideNumber: 'c/t',
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+        <!-- Tidb -->
+        <section data-transition="zoom">
+            <section data-transition-speed="fast" data-background-color="#fff">
+                <img src="images/tidb.png">
+                <p class="fragment">高可用</p>
+                <p class="fragment">支持<span class="fragment highlight-red">自动</span>扩容缩容</p>
+                <p class="fragment">支持OLAP + OLTP</p>
+                <p class="fragment">全面兼容mysql协议</p>
+            </section>
+            <!-- Tidb 架构图-->
+            <section data-transition-speed="fast">
+                <h2>架构剖析</h2>
+                <img src="http://oqipguzbl.bkt.clouddn.com/tidb/tidb%E6%9E%B6%E6%9E%84.png">
+            </section>
+            <!-- select 流程-->
+            <section data-transition-speed="fast">
+                <img src="http://oqipguzbl.bkt.clouddn.com/tidb_select.jpg">
+            </section>
+            <!-- 谈存储 -->
+            <section data-transition-speed="fast">
+                <h2>存储</h2>
+                <img src="http://oqipguzbl.bkt.clouddn.com/tidb-daily-1-4.png">
+            </section>
+            <!-- 性能监控-->
+            <section data-transition-speed="fast">
+                <h3>性能监控</h3>
+                <img src="http://oqipguzbl.bkt.clouddn.com/tidb/storage.png">
+            </section>
+        </section>
+
+        <!-- 踩坑日常 -->
+        <section data-transition="zoom">
+            <section data-transition-speed="fast">
+                <h2>干货：踩坑日常</h2>
+                <img src="images/pit.jpg">
+            </section>
+            <section>
+                <p class="fragment">节点大量挂掉</p>
+                <p class="fragment">热点问题</p>
+            </section>
+        </section>
+
+        <!-- end -->
+        <section data-transition="convex">
+            <p class="fragment fade-up current-visible">博客：7le.top 里有Tidb的简单测评和完整踩坑日常</p>
+            <p class="fragment fade-up current-visible">本人才疏学浅，望大佬们斧正</p>
+            <p class="fragment fade-up current-visible">Thanks！</p>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    Reveal.initialize({
+        history: true,
+        // 是否显示当前幻灯片的页数
+        slideNumber: 'c/t',
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
 </html>
