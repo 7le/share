@@ -28,7 +28,7 @@
         <section data-background-color="#000">
             <h2>分布式数据库</h2>
             <small class="author-name">何骞</small>
-            <p>2018-4-10</p>
+            <p>2018-4-12</p>
         </section>
         <!-- DB 演变 -->
         <section>
@@ -53,15 +53,15 @@
                     或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
             </section>
             <section data-transition-speed="slow">
-                <h2>解决方案</h2>
+                <h2>实现方案</h2>
                 <p class="fragment">Nosql （MongoDB 分片，HBase）</p>
-                <p class="fragment">RDBMS + 中间件（Cobar，TDDL，Mycat ），实现读写分离、垂直拆库、水平分表</p>
+                <p class="fragment">RDBMS + 中间件（Mycat，Cobar，TDDL ），实现读写分离、垂直拆库、水平分表</p>
             </section>
             <section data-transition-speed="slow">
                 <h2>弊端</h2>
                 <p class="fragment">分库后 -> 业务复杂（例如查询后需要数据合并）</p>
                 <p class="fragment">对sql进行阉割，不支持一些复杂sql（例如复杂的join操作）</p>
-                <p class="fragment">水平扩容需要人工参与，甚至停服，成本巨大（例如myCat）</p>
+                <p class="fragment">水平扩容需要人工参与，甚至停服，成本巨大（例如MyCat）</p>
             </section>
         </section>
         <section data-transition="zoom">
@@ -88,15 +88,18 @@
             <section data-transition-speed="fast">
                 <img src="images/tidb_select.jpg">
             </section>
-            <!-- 谈存储 -->
+            <!-- 容灾 -->
             <section data-transition-speed="fast">
-                <h2>存储</h2>
-                <img src="images/tidb-daily-1-4.png">
+                <h2>容灾</h2>
+                <img src="images/raft.png">
             </section>
             <!-- 性能监控-->
             <section data-transition-speed="fast">
                 <h3>性能监控</h3>
                 <img src="images/storage.png">
+            </section>
+            <section data-transition-speed="fast">
+                <img src="images/grafana-screenshot.png">
             </section>
         </section>
 
@@ -106,15 +109,33 @@
                 <h2>干货：踩坑日常</h2>
                 <img src="images/pit.jpg">
             </section>
-            <section>
-                <p class="fragment">节点大量挂掉</p>
-                <p class="fragment">热点问题</p>
+            <section data-transition-speed="fast">
+                <h2>节点大量挂掉</h2>
+                <img class="fragment" src="images/tidb-daily-1-4.png">
+            </section>
+            <section data-transition-speed="fast">
+                <h2>热点问题</h2>
+                <p class="fragment">自增id</p>
+                <p class="fragment">单调递增索引（例如时间戳）</p>
             </section>
         </section>
 
+        <section data-transition="zoom">
+            <h2>分布式数据库性能一定 > 单机？</h2>
+            <p class="fragment">数据量低于5000W的场景用不到</p>
+            <p class="fragment">单机数据库能满足的场景也用不到</p>
+        </section>
+        <!-- 个人观点 -->
+        <section data-transition="zoom">
+            <h2>未来的数据库</h2>
+            <p class="fragment fade-up current-visible">势必会是OLAP和OLTP的融合</p>
+            <p class="fragment fade-up current-visible">高可用和自动化运维会成为标配</p>
+            <p class="fragment fade-up current-visible">Raft等一致性算法取代主从日志同步</p>
+            <p class="fragment fade-up current-visible">云化</p>
+        </section>
         <!-- end -->
         <section data-transition="convex">
-            <p class="fragment fade-up current-visible">博客：7le.top 里有Tidb的简单测评和完整踩坑日常</p>
+            <p class="fragment fade-up current-visible">博客:7le.top 里有选型Tidb时的测评和完整踩坑日常</p>
             <p class="fragment fade-up current-visible">本人才疏学浅，望大佬们斧正</p>
             <p class="fragment fade-up current-visible">Thanks！</p>
         </section>
