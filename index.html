@@ -48,17 +48,16 @@
             </section>
             <section data-transition-speed="fast">
                 <h2><span class="fragment highlight-blue">分布式数据库</span>走上神坛</h2>
-                <p class="fragment">实现容量的<span class="fragment highlight-green">水平扩展</span></p>
-                <p class="fragment"> 但代价是<span class="fragment highlight-red">牺牲事务</span>
-                    或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
-            </section>
-            <section data-transition-speed="slow">
-                <h2>实现方案</h2>
                 <p class="fragment">Nosql （MongoDB 分片，HBase）</p>
                 <p class="fragment">RDBMS + 中间件（Mycat，Cobar，TDDL ），实现读写分离、垂直拆库、水平分表</p>
             </section>
             <section data-transition-speed="slow">
                 <h2>痛点</h2>
+                <p class="fragment">实现容量的<span class="fragment highlight-green">水平扩展</span></p>
+                <p class="fragment"> 但代价是<span class="fragment highlight-red">牺牲事务</span>
+                    或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
+            </section>
+            <section>
                 <p class="fragment">分库后 -> 业务复杂（例如查询后需要数据合并）</p>
                 <p class="fragment">对sql进行阉割，不支持一些复杂sql（例如复杂的join操作）</p>
                 <p class="fragment">水平扩容需要人工参与，甚至停服，成本巨大（例如MyCat）</p>
