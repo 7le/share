@@ -48,7 +48,7 @@
             </section>
             <section data-transition-speed="fast">
                 <h2><span class="fragment highlight-blue">分布式数据库</span>走上神坛</h2>
-                <p class="fragment">Nosql （MongoDB 分片，HBase）</p>
+                <p class="fragment">Nosql （MongoDB 分片，redis）</p>
                 <p class="fragment">RDBMS + 中间件（Mycat，Cobar，TDDL ），实现读写分离、垂直拆库、水平分表</p>
             </section>
             <section data-transition-speed="slow">
@@ -58,9 +58,9 @@
                     或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
             </section>
             <section>
-                <p class="fragment">分库后 -> 业务复杂（例如查询后需要数据合并）</p>
+                <p class="fragment">分库导致增加业务复杂度（例如查询后需要数据合并）</p>
                 <p class="fragment">对sql进行阉割，不支持一些复杂sql（例如复杂的join操作）</p>
-                <p class="fragment">水平扩容需要人工参与，甚至停服，成本巨大（例如MyCat）</p>
+                <p class="fragment">无法支持在线扩容，有的需要人工参与，甚至停服，成本巨大</p>
             </section>
         </section>
         <section data-transition="zoom">
@@ -74,7 +74,7 @@
             <section data-transition-speed="fast" data-background-color="#fff">
                 <img src="images/logo_tidb.png">
                 <p class="fragment">高可用</p>
-                <p class="fragment">支持<span class="fragment highlight-red">自动</span>扩容缩容</p>
+                <p class="fragment">支持<span class="fragment highlight-red">在线自动</span>扩容缩容</p>
                 <p class="fragment">支持OLAP + OLTP</p>
                 <p class="fragment">全面兼容mysql协议</p>
             </section>
