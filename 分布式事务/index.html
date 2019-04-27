@@ -30,112 +30,31 @@
             <small class="author-name">何骞</small>
             <p>2019-04-26</p>
         </section>
-        <!-- DB 演变 -->
+        <!-- 什么是事务 -->
         <section>
-            <h1>DB</h1>
-            <img class="fragment" src="images/db_evolution.jpg">
-        </section>
-
-        <section data-transition-speed="slow">
-            <h2>单机数据库</h2>
-            <p class="fragment">把数据存下来</p>
-            <p class="fragment">满足数据的计算需求</p>
-        </section>
-        <section data-transition="zoom">
-            <section data-transition-speed="slow">
-                <img src="images/sea.jpg">
-                <h2>随着数据规模爆炸式增长</h2>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic1.jpg">
             </section>
-            <section data-transition-speed="fast">
-                <h2><span class="fragment highlight-blue">分布式数据库</span>走上神坛</h2>
-                <p class="fragment">Nosql （MongoDB 分片，redis）</p>
-                <p class="fragment">RDBMS + 中间件（Mycat，Cobar，TDDL ），实现读写分离、垂直拆库、水平分表</p>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic2.jpg">
             </section>
-            <section data-transition-speed="slow">
-                <h2>痛点</h2>
-                <p class="fragment">实现容量的<span class="fragment highlight-green">水平扩展</span></p>
-                <p class="fragment"> 但代价是<span class="fragment highlight-red">牺牲事务</span>
-                    或是<span class="fragment highlight-red">简化数据模型</span>，只提供简单的KV模型，降低对业务的支撑</p>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic3.jpg">
             </section>
-            <section>
-                <p class="fragment">分库导致增加业务复杂度（例如查询后需要数据合并）</p>
-                <p class="fragment">对sql进行阉割，不支持一些复杂sql（例如复杂的join操作）</p>
-                <p class="fragment">无法支持在线扩容，有的需要人工参与，甚至停服，成本巨大</p>
+            <section data-transition="slide-in fade-out">
+                <p class="fragment">Atomicity（原子性）：一个事务（transaction）中的所有操作，或者全部完成，或者全部不完成，不会结束在中间某个环节。</p>
+                <p class="fragment">Consistency（一致性）：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。</p>
             </section>
-        </section>
-        <section data-transition="zoom">
-            <h1>NewSql</h1>
-            <p class="fragment">随着Google的Spanner和F1论文发布，
-                让业界第一次看到了关系模型和 NoSQL 的扩展性在一个大规模生产系统上融合的可能性。</p>
-        </section>
-
-        <!-- Tidb -->
-        <section data-transition="zoom">
-            <section data-transition-speed="fast" data-background-color="#fff">
-                <img src="images/logo_tidb.png">
-                <p class="fragment">高可用</p>
-                <p class="fragment">支持<span class="fragment highlight-red">在线自动</span>扩容缩容</p>
-                <p class="fragment">支持OLAP + OLTP</p>
-                <p class="fragment">全面兼容mysql协议</p>
+            <section data-transition="slide-in fade-out">
+                <p class="fragment">Isolation（隔离性）：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。</p>
+                <p class="fragment">Durability（持久性）：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
             </section>
-            <!-- Tidb 架构图-->
-            <section data-transition-speed="fast">
-                <h2>架构剖析</h2>
-                <img src="images/tidb.png">
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic4.jpg">
             </section>
-            <!-- select 流程-->
-            <section data-transition-speed="fast">
-                <img src="images/tidb_select.jpg">
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic5.jpg">
             </section>
-            <!-- 容灾 -->
-            <section data-transition-speed="fast">
-                <h2>容灾</h2>
-                <img src="images/raft.png">
-            </section>
-            <!-- 性能监控-->
-            <section data-transition-speed="fast">
-                <h3>性能监控</h3>
-                <img src="images/storage.png">
-            </section>
-            <section data-transition-speed="fast">
-                <img src="images/grafana-screenshot.png">
-            </section>
-        </section>
-
-        <!-- 踩坑日常 -->
-        <section data-transition="zoom">
-            <section data-transition-speed="fast">
-                <h2>干货：踩坑日常</h2>
-                <img src="images/pit.jpg">
-            </section>
-            <section data-transition-speed="fast">
-                <h2>节点大量挂掉</h2>
-                <img class="fragment" src="images/tidb-daily-1-4.png">
-            </section>
-            <section data-transition-speed="fast">
-                <h2>热点问题</h2>
-                <p class="fragment">自增id</p>
-                <p class="fragment">单调递增索引（例如时间戳）</p>
-            </section>
-        </section>
-
-        <section data-transition="zoom">
-            <h2>分布式数据库性能一定 > 单机？</h2>
-            <p class="fragment">数据量低于5000W的场景用不到</p>
-            <p class="fragment">单机数据库能满足的场景也用不到</p>
-        </section>
-        <!-- 个人观点 -->
-        <section data-transition="zoom">
-            <h2>未来的数据库</h2>
-            <p class="fragment fade-up current-visible">势必会是OLAP和OLTP的融合</p>
-            <p class="fragment fade-up current-visible">高可用和自动化运维会成为标配</p>
-            <p class="fragment fade-up current-visible">Raft等一致性算法取代主从日志同步</p>
-            <p class="fragment fade-up current-visible">云化</p>
-        </section>
-        <!-- end -->
-        <section data-transition="convex">
-            <p class="fragment fade-up current-visible">博客:7le.top 里有选型Tidb时的测评和完整踩坑日常</p>
-            <p class="fragment fade-up current-visible">Thanks！</p>
         </section>
     </div>
 </div>
