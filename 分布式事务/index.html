@@ -31,7 +31,7 @@
             <p>2019-04-26</p>
         </section>
         <!-- 什么是事务 -->
-        <section>
+        <section data-transition="convex">
             <section data-transition="fade-in fade-out">
                 <img src="images/comic1.jpg">
             </section>
@@ -55,6 +55,119 @@
             <section data-transition="fade-in fade-out">
                 <img src="images/comic5.jpg">
             </section>
+        </section>
+        <!-- 什么是分是不是事务 -->
+        <section data-transition="zoom">
+            <h3>那什么是分布式事务？</h3>
+            <p class="fragment">分布式事务就是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。</p>
+            <p class="fragment">简单的说，就是一次大的操作由不同的小操作组成，这些小的操作分布在不同的服务器上，且属于不同的应用，分布式事务需要保证这些小操作要么全部成功，要么全部失败。</p>
+        </section>
+        <section data-transition="fade-in fade-out">
+            <section data-transition="slide-in slide-out">
+                <img src="images/lizi.jpg">
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic6.jpg">
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic7.jpg">
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic8.jpg">
+            </section>
+        </section>
+        <!-- 如何解决分布式事务 -->
+        <section data-transition="slide-in fade-out">
+            <section data-transition="fade-in fade-out">
+                <img height="600" width="600" src="images/cap.png">
+                <aside class="notes">
+                    如何解决分布式事务
+                </aside>
+            </section>
+            <section>
+                <p class="fragment">关系型数据库由于关系型数据库是单节点的，因此，<span
+                        class="fragment highlight-red">不具有分区容错性，但是具有一致性和可用性。</span></p>
+                <p class="fragment">而分布式的服务化系统都需要满足分区容错性，那么我们必须在<span class="fragment highlight-red">一致性和可用性</span>中进行权衡
+                </p>
+                <p class="fragment">具体表现在服务化系统处理的异常请求在某一个时间段内可能是不完全的，但是经过自动的或者手工的补偿后，达到了<span
+                        class="fragment highlight-red">最终的一致性。</span></p>
+            </section>
+        </section>
+        <!-- 分布式一致性协议-->
+        <section data-transition="zoom">
+            <section data-transition="fade-in fade-out">
+                <h2>分布式一致性协议</h2>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <h2>两阶段提交协议</h2>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img height="600" width="800" src="images/2pc.png">
+                <aside class="notes">
+                    阻塞：从上面的描述来看，对于任何一次指令必须收到明确的响应，才会继续做下一步，否则处于阻塞状态，占用的资源被一直锁定，不会被释放
+                    <hr>
+                    单点故障：如果协调者宕机，参与者没有了协调者指挥，会一直阻塞，尽管可以通过选举新的协调者替代原有协调者，但是如果之前协调者在发送一个提交指令后宕机，而提交指令仅仅被一个参与者接受，并且参与者接收后也宕机，新上任的协调者无法处理这种情况
+                    <hr>
+                    脑裂：协调者发送提交指令，有的参与者接收到执行了事务，有的参与者没有接收到事务，就没有执行事务，多个参与者之间是不一致的
+                    <hr>
+                </aside>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <h2>三阶段提交协议</h2>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img height="650" width="800" src="images/3pc.png">
+                <aside class="notes">
+                    增加了一个询问阶段，询问阶段可以确保尽可能早的发现无法执行操作而需要中止的行为，但是它并不能发现所有的这种行为，只会减少这种情况的发生
+                    <hr>
+                    在准备阶段以后，协调者和参与者执行的任务中都增加了超时，一旦超时，协调者和参与者都继续提交事务，默认为成功，这也是根据概率统计上超时后默认成功的正确性最大
+                    <hr>
+                </aside>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <h2>TCC</h2>
+            </section>
+            <section data-transition="fade-in fade-out">
+                <img height="500" width="700" src="images/tcc.png">
+                <aside class="notes">
+                    TCC协议将一个任务拆分成Try、Confirm、Cancel，正常的流程会先执行Try，如果执行没有问题，再执行Confirm，如果执行过程中出了问题，则执行操作的逆操Cancel。
+                    <hr>
+                    从正常的流程上讲，这仍然是一个两阶段的提交协议，但是，在执行出现问题的时候，有一定的自我修复能力，如果任何一个参与者出现了问题，协调者通过执行操作的逆操作来取消之前的操作，达到最终的一致状态
+                    <hr>
+                </aside>
+            </section>
+        </section>
+        <!-- 最终一致性-->
+        <section data-transition="convex">
+            <section data-transition="slide-in fade-out">
+                <h2>保证最终一致性的模式</h2>
+                <aside class="notes">
+                    使用两阶段提交协议和三阶段提交协议，确实能解决系统间一致性问题，除了这两个协议带来的自身的问题，这些协议的实现比较复杂、成本比较高，最重要的是性能并不好，相比来看，TCC协议更简单、容易实现，但是TCC协议由于每个事务都需要执行Try，再执行Confirm，略微显得臃肿。
+                    <hr>
+                    因此，在现实的系统中，底线要求仅仅需要能达到最终一致性，而不需要实现专业的、复杂的一致性协议，实现最终一致性有非简单粗暴的方式。
+                    <hr>
+                </aside>
+            </section>
+            <section data-transition="slide-in fade-out">
+                <h3 class="fragment">基于可靠消息模式</h3>
+                <img class="fragment" src="images/shine-mq.png">
+            </section>
+            <section data-transition="convex">
+                <img src="images/shine-mq-time.jpg">
+            </section>
+            <section data-transition="convex">
+                <img height="650" src="images/other1.jpg">
+            </section>
+            <section data-transition="convex">
+                <img height="650" src="images/other2.jpg">
+            </section>
+            <section data-transition="convex">
+                <img src="images/other3.jpg">
+            </section>
+        </section>
+        <!-- end -->
+        <section data-transition="convex">
+            <h2 class="fade-up current-visible">Thanks！</h2>
         </section>
     </div>
 </div>
