@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/mystyle.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css'
+            : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!-- 封面 -->
+        <section data-background-color="#000">
+            <h2>DDD-领域驱动设计</h2>
+            <small class="author-name">何骞</small>
+            <p>2022-03-22</p>
+        </section>
+
+        <!-- 前言 -->
+        <section data-transition="convex">
+            <section data-transition="fade-in fade-out">
+                <img src="images/comic1.jpg">
+            </section>
+            <section data-transition="fade-in fade-out">
+                <p class="fragment">DDD（Domain-Driven Design，领域驱动设计）</p>
+                <P class="fragment"><span
+                        class="fragment highlight-current-red"> DDD≠银弹 有设计都是好的</span></P>
+                <aside class="notes">
+                    DDD（Domain-Driven Design，领域驱动设计）是一个流派，谈不上压倒性优势，更不是完美无缺。
+                    <hr>
+                    我更想跟大家分享的是我们是否关注设计本身，不管什么流派的设计，有设计就是好的。
+                </aside>
+            </section>
+        </section>
+
+        <!-- 什么是DDD -->
+        <section data-transition="zoom">
+            <h3>那什么是领域驱动设计？</h3>
+            <p class="fragment">领域驱动设计是一个抽象的概念，我们可以通过比较来更好的认识它</p>
+        </section>
+        <section data-transition="fade-in fade-out">
+            <section data-transition="slide-in slide-out">
+                <img src="images/lizi.jpg">
+            </section>
+        </section>
+
+        <section data-transition="slide-in fade-out">
+            <section data-transition="fade-in fade-out">
+                <h3>领域模型设计</h3>
+                <h3 class="fragment">基于数据库 <span class="fragment highlight-current-red">VS</span>
+                   基于对象
+                </h3>
+            </section>
+
+            <section data-transition="slide-in slide-out">
+                <img src="images/object_vs_db.jpg">
+                <aside class="notes">
+                    基于数据库: 通过数据抽象系统关系，也就是数据库设计。换个词来说就是数据字典，通过先定义完数据库，然后再从下到上倒推上去。
+                    (DB -> POJO -> 重Service -> Controllers -> View)
+                    <hr>
+                    在service层通过我们非常喜欢的manager去管理大部分的逻辑，
+                    POJO作为数据在manager手（上帝之手）里不停地变换和组合，
+                    service层在这里是一个巨大的加工工厂（很重的一层），围绕着数据库这份DNA，完成业务逻辑。
+                    <hr>
+                    经典例子，爸爸打儿子。基于数据库，爸爸想教训调皮的儿子->告诉上帝（manager）->上帝拿起爸爸的手打了儿子->儿子疼
+                    基于Object，爸爸直接就可以教训调皮的儿子 这是爸爸的职责（能力）
+                    <hr>
+                    基于Object的时候，我们可以假设你的机器内存无限大，永远不宕机。那我们不关心持久化的问题的，那这时候我们该如何设计？
+                    这时候最佳的方案无疑就是面向对象的领域建模了。
+                </aside>
+            </section>
+        </section>
+
+        <!-- 如何落地DDD -->
+        <section data-transition="slide-in fade-out">
+            <section data-transition="fade-in fade-out">
+                <h3>如何落地DDD</h3>
+            </section>
+
+            <section>
+                <p class="fragment">DDD相关的文章有很多，但是绝大部分都是在说一些概念，概念我们今天就不赘述</p>
+                <p class="fragment">今天主要来讲真正落地的<span
+                        class="fragment highlight-current-red">DDD架构</span></p>
+
+                <aside class="notes">
+                    经典的资料有白皮书《领域驱动设计-软件核心复杂性应对之道》和红皮书《实现领域驱动设计》
+                </aside>
+            </section>
+
+            <section>
+                <section data-transition="fade-in fade-out">
+                    <img height="650" width="800" src="images/ddd.jpg">
+                </section>
+            </section>
+        </section>
+
+        <!-- 如何建模 -->
+        <section data-transition="convex">
+            <section data-transition="fade-in fade-out">
+                <h3>如何建模？</h3>
+            </section>
+
+            <section data-transition="slide-in fade-out">
+                <h3>事件风暴</h3>
+                <img height="500" width="1200" src="images/eventStorm.jpg">
+                <aside class="notes">
+                    比较好的方式就是用事件风暴的方式来建模，
+                    这图网上找的，以前的照片找到了 -。-
+                    黄色：domain/实体
+                    蓝色：command/命令
+                    橙色：事件（完成态）
+                    粉色：外部依赖
+                    还有读模型，用户这张图中没有
+                    通过这种方式，可以沉淀出领域模型图，有对应的职责和属性，也方便后续的人了解这个域的业务。
+                </aside>
+            </section>
+        </section>
+
+        <!-- end -->
+        <section data-transition="convex">
+            <h2 class="fade-up current-visible">Thanks！</h2>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    Reveal.initialize({
+        history: true,
+        // 是否显示当前幻灯片的页数
+        slideNumber: 'c/t',
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
